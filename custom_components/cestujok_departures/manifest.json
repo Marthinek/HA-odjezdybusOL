@@ -1,0 +1,12 @@
+{
+  "domain": "cestujok_departures",
+  "name": "CestujOK – Odjezdy autobusů",
+  "codeowners": [
+    "@Marthinek"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Marthinek/HA-odjezdybusOL",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "0.1.0"
+}
