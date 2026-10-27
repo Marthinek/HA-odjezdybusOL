@@ -2,7 +2,7 @@
 
 A standalone Home Assistant OS add-on that reads upcoming bus departures from the CestujOK / IDSOK portal and publishes them to Home Assistant using MQTT Discovery.
 
-**Default stop:** Jeseník, Lipovská (ID `S-13053`).
+**Default stops:** Jeseník, Lipovská (`S-13053`) and Jeseník, žel.st. (`S-13064`).
 
 **Language:** [Česká verze README](README.cs.md)
 
@@ -25,15 +25,15 @@ A standalone Home Assistant OS add-on that reads upcoming bus departures from th
 
 ## Configuration
 
-- `station_id`: CestujOK stop ID; defaults to `S-13053`.
-- `station_name`: stop name displayed in Home Assistant.
+- `station_ids`: comma-separated CestujOK stop IDs; defaults to `S-13053,S-13064`.
+- `station_names`: stop names separated by `|`, in the same order as `station_ids`; defaults to `Jeseník, Lipovská|Jeseník, žel.st.`. Commas inside stop names are supported.
 - `update_interval`: polling interval in seconds (30–600).
 - `departures_count`: number of departure sensors (1–10).
 - `mqtt_host`, `mqtt_port`, `mqtt_username`, `mqtt_password`: MQTT connection settings.
 - `mqtt_discovery_prefix`: MQTT Discovery prefix, usually `homeassistant`.
 - `mqtt_topic_prefix`: add-on topic prefix; defaults to `cestujok`.
 
-To use another stop, change both `station_id` and `station_name`. For example, **Jeseník, žel.st.** uses ID `S-13064`; **Jeseník, Lipovská** uses ID `S-13053`.
+To use one or more other stops, update `station_ids` and `station_names` in the add-on configuration. Keep both lists in the same order. For example, `station_ids: "S-13053,S-13064"` and `station_names: "Jeseník, Lipovská|Jeseník, žel.st."` configures both stops. Each stop gets its own MQTT topics, device, and departure sensors.
 
 ## Data source and limitations
 
