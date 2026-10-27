@@ -1,0 +1,36 @@
+name: "CestujOK – Odjezdy autobusů"
+slug: "cestujok_departures"
+description: "Publikuje odjezdy ze zastávky CestujOK do Home Assistantu přes MQTT Discovery."
+version: "0.1.0"
+url: "https://github.com/Marthinek/HA-odjezdybusOL"
+startup: application
+boot: auto
+init: false
+arch:
+  - amd64
+  - aarch64
+  - armv7
+  - armhf
+  - i386
+options:
+  station_id: "S-13053"
+  station_name: "Jeseník, Lipovská"
+  update_interval: 60
+  departures_count: 6
+  mqtt_host: "core-mosquitto"
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+  mqtt_discovery_prefix: "homeassistant"
+  mqtt_topic_prefix: "cestujok"
+schema:
+  station_id: str
+  station_name: str
+  update_interval: int(30,600)
+  departures_count: int(1,10)
+  mqtt_host: str
+  mqtt_port: port
+  mqtt_username: str
+  mqtt_password: password
+  mqtt_discovery_prefix: str
+  mqtt_topic_prefix: str
