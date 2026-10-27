@@ -173,14 +173,13 @@ class CestujOKPublisher:
         try:
             while RUNNING:
                 if self.connected:
-                    try:
-                        for station in self.stations:
-                            try:
-                                self.publish(station)
-                            except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
-                                LOG.warning("Unable to fetch departures for %s (%s): %s", station["name"], station["id"], exc)
-                            except Exception:
-                                LOG.exception("Unexpected error while publishing departures for %s", station["name"])
+                    for station in self.stations:
+                        try:
+                            self.publish(station)
+                        except (requests.RequestException, ValueError, json.JSONDecodeError) as exc:
+                            LOG.warning("Unable to fetch departures for %s (%s): %s", station["name"], station["id"], exc)
+                        except Exception:
+                            LOG.exception("Unexpected error while publishing departures for %s", station["name"])
                 else:
                     LOG.debug("Waiting for MQTT connection")
                 for _ in range(self.interval):
