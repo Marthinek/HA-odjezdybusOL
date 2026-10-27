@@ -111,7 +111,7 @@ class CestujOKPublisher:
                 "object_id": f"cestujok_{object_id}",
                 "state_topic": state_topic,
                 "value_template": f"{{{{ value_json.departures[{index}].time if value_json.departures|length > {index} else 'unknown' }}}}",
-                "json_attributes_topic": self.state_topic,
+                "json_attributes_topic": state_topic,
                 "json_attributes_template": f"{{{{ value_json.departures[{index}] | tojson if value_json.departures|length > {index} else '{{}}' }}}}",
                 "availability_topic": availability_topic,
                 "payload_available": "online",
@@ -189,7 +189,8 @@ class CestujOKPublisher:
                     time.sleep(1)
         finally:
             try:
-                self.client.publish(availability_topic, "offline", qos=1, retain=True)
+                for station in self.stations:
+                    self.client.publish(f"{self.topic_prefix}/{station['slug']}/availability", "offline", qos=1, retain=True)
                 self.client.loop_stop()
                 self.client.disconnect()
             except Exception:
