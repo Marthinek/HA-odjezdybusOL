@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "CestujOK – odjezdy autobusů",
+        "description": "Zadej název zastávky nebo města. Integrace se pokusí najít odpovídající zastávky.",
+        "data": {
+          "query": "Zastávka nebo město"
+        }
+      },
+      "pick_stop": {
+        "title": "Vyber zastávku",
+        "description": "Vyber správnou zastávku, ideálně i s odpovídajícím směrem.",
+        "data": {
+          "stop": "Nalezené zastávky"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nepodařilo se spojit s CestujOK.",
+      "no_stops": "Nebyly nalezeny žádné zastávky. Zkus upřesnit hledání.",
+      "query_too_short": "Zadej alespoň dva znaky."
+    },
+    "abort": {
+      "already_configured": "Tato zastávka už je přidaná."
+    }
+  }
+}
