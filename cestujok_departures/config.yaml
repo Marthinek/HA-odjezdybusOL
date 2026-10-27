@@ -1,7 +1,7 @@
 name: "CestujOK – Odjezdy autobusů"
 slug: "cestujok_departures"
 description: "Publikuje odjezdy ze zastávky CestujOK do Home Assistantu přes MQTT Discovery."
-version: "0.1.1"
+version: "0.2.0"
 url: "https://github.com/Marthinek/HA-odjezdybusOL"
 startup: application
 boot: auto
@@ -13,8 +13,8 @@ arch:
   - armhf
   - i386
 options:
-  station_id: "S-13053"
-  station_name: "Jeseník, Lipovská"
+  station_ids: "S-13053,S-13064"
+  station_names: "Jeseník, Lipovská|Jeseník, žel.st."
   update_interval: 60
   departures_count: 6
   mqtt_host: "core-mosquitto"
@@ -24,8 +24,8 @@ options:
   mqtt_discovery_prefix: "homeassistant"
   mqtt_topic_prefix: "cestujok"
 schema:
-  station_id: str
-  station_name: str
+  station_ids: str
+  station_names: str
   update_interval: int(30,600)
   departures_count: int(1,10)
   mqtt_host: str
