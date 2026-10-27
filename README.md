@@ -1,49 +1,51 @@
-# CestujOK – odjezdy autobusů pro Home Assistant
+# CestujOK Bus Departures for Home Assistant
 
-Samostatný Home Assistant OS doplněk (app), který čte odjezdy z portálu CestujOK / IDSOK a publikuje je do Home Assistantu přes MQTT Discovery.
+A standalone Home Assistant OS add-on that reads upcoming bus departures from the CestujOK / IDSOK portal and publishes them to Home Assistant using MQTT Discovery.
 
-**Výchozí zastávka:** Jeseník, Lipovská (ID S-13053).
+**Default stop:** Jeseník, Lipovská (ID `S-13053`).
 
-## Co doplněk dělá
+**Language:** [Česká verze README](README.cs.md)
 
-- Každých 60 sekund načítá seznam nejbližších odjezdů ze zastávky.
-- Publikuje MQTT Discovery senzory pro jednotlivé odjezdy (výchozí počet: 6).
-- U každého senzoru zpřístupňuje jako atributy cíl, označení spoje, čas, zpoždění, typ vozidla a informaci o výluce.
-- Publikuje dostupnost přes MQTT a uchovává poslední stav jako retained zprávu.
-- Doplněk lze aktualizovat nebo restartovat samostatně, bez restartu Home Assistant Core.
+## Features
 
-## Instalace doplňku
+- Fetches upcoming departures every 60 seconds by default.
+- Publishes MQTT Discovery sensors for individual departures (6 by default).
+- Exposes departure time as the sensor state and additional information as attributes: destination, line/service label, delay, vehicle type, line type, and detour flag.
+- Publishes MQTT availability and retains the latest state.
+- Can be restarted or updated independently without restarting Home Assistant Core.
 
-1. Otevři **Nastavení → Doplňky → Obchod s doplňky**.
-2. V nabídce vpravo nahoře zvol **Repozitáře**.
-3. Přidej tento repozitář: https://github.com/Marthinek/HA-odjezdybusOL
-4. Obnov stránku obchodu a nainstaluj **CestujOK – Odjezdy autobusů**.
-5. V konfiguraci doplňku nastav MQTT broker. Pokud používáš Mosquitto add-on, obvykle je hostitel core-mosquitto, port 1883; doplň MQTT uživatelské jméno a heslo podle své konfigurace.
-6. Spusť doplněk. Senzory se mají objevit v Home Assistantu automaticky díky MQTT Discovery.
+## Installation
 
-## Konfigurace
+1. In Home Assistant, open **Settings → Add-ons → Add-on Store**.
+2. Open the menu in the upper-right corner and select **Repositories**.
+3. Add this repository: https://github.com/Marthinek/HA-odjezdybusOL
+4. Refresh the store and install **CestujOK – Odjezdy autobusů**.
+5. Configure the MQTT broker. For the Mosquitto add-on, the host is usually `core-mosquitto` and the port is `1883`. Set the MQTT username and password to match your broker configuration.
+6. Start the add-on. Sensors should appear automatically through MQTT Discovery.
 
-- station_id: ID zastávky v CestujOK, výchozí S-13053.
-- station_name: název zastávky zobrazený v Home Assistantu.
-- update_interval: interval dotazování v sekundách (30–600).
-- departures_count: počet senzorů odjezdů (1–10).
-- mqtt_host, mqtt_port, mqtt_username, mqtt_password: připojení k MQTT.
-- mqtt_discovery_prefix: obvykle homeassistant.
-- mqtt_topic_prefix: prefix témat doplňku, výchozí cestujok.
+## Configuration
 
-Pro zastávku Jeseník, Lipovská je ID v CestujOK S-13053. Pokud chceš jinou zastávku, změň station_id i station_name.
+- `station_id`: CestujOK stop ID; defaults to `S-13053`.
+- `station_name`: stop name displayed in Home Assistant.
+- `update_interval`: polling interval in seconds (30–600).
+- `departures_count`: number of departure sensors (1–10).
+- `mqtt_host`, `mqtt_port`, `mqtt_username`, `mqtt_password`: MQTT connection settings.
+- `mqtt_discovery_prefix`: MQTT Discovery prefix, usually `homeassistant`.
+- `mqtt_topic_prefix`: add-on topic prefix; defaults to `cestujok`.
 
-## Zdroj dat a omezení
+To use another stop, change both `station_id` and `station_name`. For example, **Jeseník, žel.st.** uses ID `S-13064`; **Jeseník, Lipovská** uses ID `S-13053`.
 
-Použité endpointy byly ověřeny v síťovém záznamu webu CestujOK:
+## Data source and limitations
 
-- GET https://www.cestujok.cz/idspublicservices/api/station – seznam zastávek.
-- GET https://www.cestujok.cz/idspublicservices/api/station/S-13053/nextservices – nadcházející odjezdy včetně pole delay, pokud je dostupné.
+The following CestujOK endpoints were identified from the website's network traffic:
 
-Jde o neoficiální HTTP rozhraní, které se může kdykoli změnit a není garantováno provozovatelem. Zpoždění není uvedeno u každého spoje. Projekt není oficiálně spojen s CestujOK, IDSOK ani dopravci.
+- `GET https://www.cestujok.cz/idspublicservices/api/station` — list of stops.
+- `GET https://www.cestujok.cz/idspublicservices/api/station/S-13053/nextservices` — upcoming departures for Jeseník, Lipovská.
 
-## Starší HACS integrace
+This add-on uses an unofficial HTTP interface that may change without notice and is not guaranteed by the service operator. Delay information may not be available for every service. This project is not affiliated with CestujOK, IDSOK, or any transport operator.
 
-V adresáři custom_components/cestujok_departures zůstala původní experimentální HACS integrace. Pro samostatné aktualizace doporučujeme používat tento doplněk a MQTT Discovery.
+## Previous HACS integration
 
-Neposílej do veřejných issue cookies, autorizační hlavičky, tokeny ani neupravené HAR soubory.
+The original experimental HACS integration remains in `custom_components/cestujok_departures`. For standalone updates, the add-on and MQTT Discovery are recommended.
+
+Do not post cookies, authorization headers, tokens, or unredacted HAR files in public issues.
