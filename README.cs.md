@@ -2,7 +2,7 @@
 
 Samostatný doplněk pro Home Assistant OS, který načítá nadcházející autobusové odjezdy z portálu CestujOK / IDSOK a publikuje je do Home Assistantu pomocí MQTT Discovery.
 
-**Výchozí zastávka:** Jeseník, Lipovská (ID `S-13053`).
+**Výchozí zastávky:** Jeseník, Lipovská (`S-13053`) a Jeseník, žel.st. (`S-13064`).
 
 **Language:** [English README](README.md)
 
@@ -25,15 +25,15 @@ Samostatný doplněk pro Home Assistant OS, který načítá nadcházející aut
 
 ## Konfigurace
 
-- `station_id`: ID zastávky v CestujOK; výchozí hodnota je `S-13053`.
-- `station_name`: název zastávky zobrazovaný v Home Assistantu.
+- `station_ids`: ID zastávek v CestujOK oddělená čárkou; výchozí hodnota je `S-13053,S-13064`.
+- `station_names`: názvy zastávek oddělené znakem `|` ve stejném pořadí jako ID; výchozí hodnota je `Jeseník, Lipovská|Jeseník, žel.st.`. Čárky uvnitř názvů zastávek nevadí.
 - `update_interval`: interval dotazování v sekundách (30–600).
 - `departures_count`: počet senzorů odjezdů (1–10).
 - `mqtt_host`, `mqtt_port`, `mqtt_username`, `mqtt_password`: nastavení připojení k MQTT.
 - `mqtt_discovery_prefix`: prefix MQTT Discovery, obvykle `homeassistant`.
 - `mqtt_topic_prefix`: prefix MQTT témat doplňku; výchozí hodnota je `cestujok`.
 
-Pro jinou zastávku změň `station_id` i `station_name`. Například **Jeseník, žel.st.** má ID `S-13064` a **Jeseník, Lipovská** má ID `S-13053`.
+Pro jednu nebo více zastávek uprav v konfiguraci doplňku `station_ids` a `station_names`. Obě položky musí být ve stejném pořadí. Například `station_ids: "S-13053,S-13064"` a `station_names: "Jeseník, Lipovská|Jeseník, žel.st."` nastaví obě zastávky. Každá zastávka dostane vlastní MQTT témata, zařízení a senzory odjezdů.
 
 ## Zdroj dat a omezení
 
