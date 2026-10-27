@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "CestujOK bus departures",
+        "description": "Enter a stop name or town. The integration will try to find matching stops.",
+        "data": {
+          "query": "Stop or town"
+        }
+      },
+      "pick_stop": {
+        "title": "Select a stop",
+        "description": "Select the correct stop, including direction/platform if applicable.",
+        "data": {
+          "stop": "Matching stops"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to CestujOK.",
+      "no_stops": "No stops found. Try a more specific search.",
+      "query_too_short": "Enter at least two characters."
+    },
+    "abort": {
+      "already_configured": "This stop is already configured."
+    }
+  }
+}
